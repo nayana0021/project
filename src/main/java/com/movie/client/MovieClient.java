@@ -23,8 +23,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.movie.dto.DailyBoxReq;
 import com.movie.dto.DailyBoxRes;
-import com.movie.dto.MovieDetailDTO;
 import com.movie.dto.MovieDetailReq;
+import com.movie.dto.MovieDetailRes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,33 +41,34 @@ public class MovieClient {
 	@Value("${kmdb.api.key}")
 	private String kmdbKey;
 	
-	 public DailyBoxRes reqBox(DailyBoxReq dailyBoxReq){
-	    	URI uri = UriComponentsBuilder.fromUriString(boxUrl)  // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
-	                .queryParams(dailyBoxReq.toMultiValueMap())  // key=f5eef3421c602c6cb7ea224104795888&targetDt=20230416
-	                .encode()
-	                .build()              
-	                .toUri();
-
-	        HttpHeaders headers = new HttpHeaders();      
-	        headers.setContentType(MediaType.APPLICATION_JSON);
-
-	        HttpEntity<HttpHeaders> httpEntity = new HttpEntity<>(headers);        
-	        ParameterizedTypeReference<DailyBoxRes> responseType = new ParameterizedTypeReference<>(){};
-	    
-
-	        ResponseEntity<DailyBoxRes> responseEntity = new RestTemplate().exchange(
-	                uri,
-	                HttpMethod.GET,
-	                httpEntity,
-	                responseType
-	        );
-
-	        return responseEntity.getBody();
-	    }
+		 public DailyBoxRes reqBox(DailyBoxReq dailyBoxReq){
+		    	URI uri = UriComponentsBuilder.fromUriString(boxUrl)  // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+		                .queryParams(dailyBoxReq.toMultiValueMap())  // key=f5eef3421c602c6cb7ea224104795888&targetDt=20230416
+		                .encode()
+		                .build()              
+		                .toUri();
+	
+		        HttpHeaders headers = new HttpHeaders();      
+		        headers.setContentType(MediaType.APPLICATION_JSON);
+	
+		        HttpEntity<HttpHeaders> httpEntity = new HttpEntity<>(headers);        
+		        ParameterizedTypeReference<DailyBoxRes> responseType = new ParameterizedTypeReference<>(){};
+		    
+	
+		        ResponseEntity<DailyBoxRes> responseEntity = new RestTemplate().exchange(
+		                uri,
+		                HttpMethod.GET,
+		                httpEntity,
+		                responseType
+		        );
+	
+		        return responseEntity.getBody();
+		    }
+		 
 	 
-		 public void getPoster(MovieDetailReq movieDetailReq){
-		    	URI uri = UriComponentsBuilder.fromUriString(kmdbUrl)  // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
-		                .queryParams(movieDetailReq.tomulValueMap())  // key=f5eef3421c602c6cb7ea224104795888&targetDt=20230416
+		 public MovieDetailRes reqDetail(MovieDetailReq movieDetailReq){
+		    	URI uri = UriComponentsBuilder.fromUriString(kmdbUrl)  // 
+		                .queryParams(movieDetailReq.tomulValueMap())  // 
 		                .encode()
 		                .build()              
 		                .toUri();
@@ -77,98 +78,70 @@ public class MovieClient {
 		        headers.setContentType(MediaType.APPLICATION_JSON);
 	
 		        HttpEntity<HttpHeaders> httpEntity = new HttpEntity<>(headers);        
-//		        ParameterizedTypeReference<DailyBoxRes> responseType = new ParameterizedTypeReference<>(){};
-//		    
-//	
-//		        ResponseEntity<DailyBoxRes> responseEntity = new RestTemplate().exchange(
-//		                uri,
-//		                HttpMethod.GET,
-//		                httpEntity,
-//		                responseType
-//		        );
-//	
-//		        return responseEntity.getBody();
-//		    }
 		        
 		        ResponseEntity<String> resEntity = new RestTemplate().exchange(uri, HttpMethod.GET, httpEntity, String.class);
 				
 				JSONParser jsonParser = new JSONParser();
 				JSONObject jsonObject = null;
 				
+				// 데이터 전체
 				try {
 					jsonObject = (JSONObject) jsonParser.parse(resEntity.getBody());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 				
-				// 가장 큰 JSON 객체 response 가져오기
-				String movieName = (String) jsonObject.get("Query");
-				// System.out.println(movieName);
+				//
+				String movieName = (String) jsonObject.get("Query");	// 큰 데이터의 영화제목
+				JSONArray jsonArray = (JSONArray) jsonObject.get("Data");	//	Data 데이터 전체
+				JSONObject jsonItems=(JSONObject) jsonArray.get(0);			// Date 전체의 첫번째 객체
+				JSONArray jsonArr= (JSONArray) jsonItems.get("Result");		// Result 데이터 전체
+		
+				JSONObject item = (JSONObject) jsonArr.get(0);	// Result 데이터의 첫번째 객체
 				
+				//directors
+				JSONObject directors = (JSONObject) item.get("directors");	// 감독 객체
+				JSONArray directorsArr = (JSONArray) directors.get("director");	// 감독 리스트
+				JSONObject diretor = (JSONObject) directorsArr.get(0);		// 감독 리스트 중 첫번째 요소
+				String directorNm = (String) diretor.get("directorNm");		// 감독 이름 스트링
 				
-				JSONArray jsonArray = (JSONArray) jsonObject.get("Data");
-		//		JSONArray jsonItems = (JSONArray) jsonArray.get(0);
+				//actors
+				JSONObject actors = (JSONObject) item.get("actors");	// 배우 객체
+				JSONArray actorArr = (JSONArray) actors.get("actor");	// actor가 리스트임
 				
-				JSONObject jsonItems=(JSONObject) jsonArray.get(0);
-				JSONArray jsonArr= (JSONArray) jsonItems.get("Result");
-//				System.out.println(jsonArr);
-
-//				List<MovieDetailDTO> list = new ArrayList<>();
+				List<String> actorsList = new ArrayList<String>();	// 배우 정보를 담을 리스트
 				
-//				for (Object object : jsonArr) {
-//					System.out.println("데이터 확인 "+object);
+					for (Object object : actorArr) {	// "actor" 객체를 한 개(리스트)씩 돌릴거임
 					
-					JSONObject item = (JSONObject) jsonArr.get(0);
-
+						JSONObject jsonObj = (JSONObject) object;	// 담음
+						
+						actorsList.add((String) jsonObj.get("actorNm"));	// 각 배우의 정보 리스트 중 이름 추출
 					
-					//directors
-					JSONObject directors = (JSONObject) item.get("directors");
-					JSONArray directorsArr = (JSONArray) directors.get("director");
-					JSONObject diretor = (JSONObject) directorsArr.get(0);
-					String directorNm = (String) diretor.get("directorNm");
-					
-					//actors
-					JSONObject actors = (JSONObject) item.get("actors");
-					JSONArray actorArr = (JSONArray) actors.get("actor");
-					
-					
-					List<String> actorsList = new ArrayList<String>();
-					
-					for (Object object : actorArr) {
-					
-					JSONObject jsonObj = (JSONObject) object;
-					
-					actorsList.add((String) jsonObj.get("actorNm"));
-					
-
 					}
+	
+					JSONObject plots = (JSONObject) item.get("plots");
+					JSONArray plotArr = (JSONArray) plots.get("plot");
+					JSONObject plotOb = (JSONObject) plotArr.get(0);
+					String plot = (String) plotOb.get("plotText");
 					
-					
-					
-					
-					
-					MovieDetailDTO dto = new MovieDetailDTO();
-					dto.setRuntime(item.get("runtime").toString());
-					dto.setTitle(movieName);
-					dto.setDirectorNm(directorNm);
-					dto.setActors(actorsList);
-					dto.setKeywords(item.get("keywords").toString());
-//					dto.setPosterUrl(item.get("posters").toString().split("|"));
+					MovieDetailRes der = new MovieDetailRes();
+					der.setTitle(movieName);
+					der.setRepRlsDate(item.get("repRlsDate").toString());	
+					der.setRating(item.get("rating").toString());
+					der.setGenre(item.get("genre").toString());
+					der.setRuntime(item.get("runtime").toString());
+					der.setDirectorNm(directorNm);
+					der.setActors(actorsList);
+					der.setKeywords(item.get("keywords").toString());
+					der.setAudiAcc(item.get("audiAcc").toString());
+					der.setPlot(plot);	
 					String posterUrl = (item.get("posters").toString());
 					
 					StringTokenizer st = new StringTokenizer(posterUrl,"|");
-					dto.setPosterUrl(st.nextToken());
-					
-					
-//					dto.setMovieNm(item.get("movieNm").toString());
-//					dto.setAudiAcc(item.get("audiAcc").toString());
-//					dto.setMovieCd(item.get("movieCd").toString());
-					
-					System.out.println(dto);
-//					list.add(dto);
-//				}
-	 
-	 
-
+					der.setPosterUrl(st.nextToken());
+										
+					System.out.println(der);
+					return der;
+	
 		}
 	}

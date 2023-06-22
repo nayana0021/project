@@ -19,14 +19,14 @@
     rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -42,7 +42,7 @@
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="./index.html">
-                            <img src="img/logo.png" alt="">
+                            <img src="/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="img/anime/details-pic.jpg">
+                        <div class="anime__details__pic set-bg" data-setbg="${detail.posterUrl} "> <!-- /img/anime/details-pic.jpg -->
                             <div class="comment"><i class="fa fa-comments"></i> 11</div>
                             <div class="view"><i class="fa fa-eye"></i> 9141</div>
                         </div>
@@ -109,8 +109,8 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>Fate Stay Night: Unlimited Blade</h3>
-                                <span>ãã§ã¤ãï¼ã¹ãã¤ãã¤ã, Feitoï¼sutei naito</span>
+                                <h3>${detail.title}</h3>
+                                <span>${detail.directorNm}</span>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
@@ -122,28 +122,25 @@
                                 </div>
                                 <span>1.029 Votes</span>
                             </div>
-                            <p>Every human inhabiting the world of Alcia is branded by a âCountâ or a number written on
-                                their body. For Hinaâs mother, her total drops to 0 and sheâs pulled into the Abyss,
-                                never to be seen again. But her motherâs last words send Hina on a quest to find a
-                            legendary hero from the Waste War - the fabled Ace!</p>
+                            <p>${detail.plot }</p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Type:</span> TV Series</li>
                                             <li><span>Studios:</span> Lerche</li>
-                                            <li><span>Date aired:</span> Oct 02, 2019 to ?</li>
+                                            <li><span>Date aired:</span> ${detail.plot }</li>
                                             <li><span>Status:</span> Airing</li>
-                                            <li><span>Genre:</span> Action, Adventure, Fantasy, Magic</li>
+                                            <li><span>Genre:</span> ${detail.genre}</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Scores:</span> 7.31 / 1,515</li>
-                                            <li><span>Rating:</span> 8.5 / 161 times</li>
-                                            <li><span>Duration:</span> 24 min/ep</li>
+                                            <li><span>Rating:</span> ${detail.rating}</li>
+                                            <li><span>Duration:</span>${detail.runtime}</li>
                                             <li><span>Quality:</span> HD</li>
-                                            <li><span>Views:</span> 131,541</li>
+                                            <li><span>Views:</span> ${detail.audiAcc}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -165,7 +162,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-1.jpg" alt="">
+                                    <img src="/img/anime/review-1.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Chris Curry - <span>1 Hour ago</span></h6>
@@ -175,7 +172,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-2.jpg" alt="">
+                                    <img src="/img/anime/review-2.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Lewis Mann - <span>5 Hour ago</span></h6>
@@ -184,7 +181,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-3.jpg" alt="">
+                                    <img src="/img/anime/review-3.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Louis Tyler - <span>20 Hour ago</span></h6>
@@ -193,7 +190,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-4.jpg" alt="">
+                                    <img src="/img/anime/review-4.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Chris Curry - <span>1 Hour ago</span></h6>
@@ -203,7 +200,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-5.jpg" alt="">
+                                    <img src="/img/anime/review-5.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Lewis Mann - <span>5 Hour ago</span></h6>
@@ -212,7 +209,7 @@
                             </div>
                             <div class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-6.jpg" alt="">
+                                    <img src="/img/anime/review-6.jpg" alt="">
                                 </div>
                                 <div class="anime__review__item__text">
                                     <h6>Louis Tyler - <span>20 Hour ago</span></h6>
@@ -235,22 +232,22 @@
                             <div class="section-title">
                                 <h5>you might like...</h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-1.jpg">
+                            <div class="product__sidebar__view__item set-bg" data-setbg="/img/sidebar/tv-1.jpg">
                                 <div class="ep">18 / ?</div>
                                 <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                 <h5><a href="#">Boruto: Naruto next generations</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-2.jpg">
+                            <div class="product__sidebar__view__item set-bg" data-setbg="/img/sidebar/tv-2.jpg">
                                 <div class="ep">18 / ?</div>
                                 <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                 <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-3.jpg">
+                            <div class="product__sidebar__view__item set-bg" data-setbg="/img/sidebar/tv-3.jpg">
                                 <div class="ep">18 / ?</div>
                                 <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                 <h5><a href="#">Sword art online alicization war of underworld</a></h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-4.jpg">
+                            <div class="product__sidebar__view__item set-bg" data-setbg="/img/sidebar/tv-4.jpg">
                                 <div class="ep">18 / ?</div>
                                 <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                 <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
@@ -271,7 +268,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="footer__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.html"><img src="/img/logo.png" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -307,14 +304,14 @@
         <!-- Search model end -->
 
         <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/player.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="/js/jquery-3.3.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/player.js"></script>
+        <script src="/js/jquery.nice-select.min.js"></script>
+        <script src="/js/mixitup.min.js"></script>
+        <script src="/js/jquery.slicknav.js"></script>
+        <script src="/js/owl.carousel.min.js"></script>
+        <script src="/js/main.js"></script>
 
     </body>
 

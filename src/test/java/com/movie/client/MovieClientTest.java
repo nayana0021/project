@@ -15,27 +15,27 @@ public class MovieClientTest {
 	@Autowired
 	private MovieClient movieClient;
 	
-//	@Test
-//	public void	boxOfficeTest() {
-//		
-//		DailyBoxReq req = new DailyBoxReq();
-//		
-//		DailyBoxRes res = movieClient.reqBox(req);
-//		
-//		System.out.println(res.getBoxOfficeResult().getDailyBoxOfficeList().get(0).getMovieNm());
-//		
-//	}
-	
 	@Test
-	public void movieNameTest() {
+	public void	boxOfficeTest() {
 		
-		MovieDetailReq req = new MovieDetailReq();
+		DailyBoxReq req = new DailyBoxReq();
 		
-		movieClient.getPoster(req);
+		DailyBoxRes res = movieClient.reqBox(req);
 		
-		
+		System.out.println(res.getBoxOfficeResult().getDailyBoxOfficeList().get(1).getMovieNm());
 		
 	}
+	
+//	@Test
+//	public void movieNameTest() {
+//		
+//		MovieDetailReq req = new MovieDetailReq();
+//		
+//		movieClient.reqDetail(req);
+//		
+//		
+//		
+//	}
 
 	
 	
