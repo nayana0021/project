@@ -20,12 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 public class MovieDetailReq {
 
-	@Autowired
-	private MovieClient movieClient;
-	@Autowired
-	private DailyBoxReq req;
-	@Autowired
-	private DailyBoxRes res;
+//	@Autowired
+//	private MovieClient movieClient;
+//	@Autowired
+//	private DailyBoxReq req;
+//	@Autowired
+//	private DailyBoxRes res;
 	
 	private String query = "";
 	private String releaseDts = "";

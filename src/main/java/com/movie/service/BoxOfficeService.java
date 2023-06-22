@@ -29,5 +29,7 @@ public class BoxOfficeService {
         return res.getBoxOfficeResult().getDailyBoxOfficeList();
     }  
     
+    
+    
 }
 

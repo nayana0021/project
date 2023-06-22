@@ -37,10 +37,9 @@ public class MovieClient {
 	
 	@Value("${kmdb.api.detail.url}")
 	private String kmdbUrl;
+
 	
-	@Value("${kmdb.api.key}")
-	private String kmdbKey;
-	
+	// 영화진흥위원회 박스오피스 요청
 		 public DailyBoxRes reqBox(DailyBoxReq dailyBoxReq){
 		    	URI uri = UriComponentsBuilder.fromUriString(boxUrl)  // https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
 		                .queryParams(dailyBoxReq.toMultiValueMap())  // key=f5eef3421c602c6cb7ea224104795888&targetDt=20230416
@@ -66,6 +65,7 @@ public class MovieClient {
 		    }
 		 
 	 
+	// kmdb 영화상세정보 요청
 		 public MovieDetailRes reqDetail(MovieDetailReq movieDetailReq){
 		    	URI uri = UriComponentsBuilder.fromUriString(kmdbUrl)  // 
 		                .queryParams(movieDetailReq.tomulValueMap())  // 
